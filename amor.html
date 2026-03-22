@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nosotros 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #e8a0a0;
+    --rose-deep: #c4687a;
+    --gold: #d4a96a;
+    --cream: #fdf6f0;
+    --blush: rgba(255, 220, 220, 0.15);
+    --glass: rgba(255, 245, 240, 0.18);
+    --glass-border: rgba(255, 200, 200, 0.35);
+    --shadow: rgba(150, 60, 80, 0.25);
+    --text-light: rgba(255, 245, 242, 0.95);
+    --text-muted: rgba(255, 235, 230, 0.75);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+    background: #1a0a0e;
+    color: var(--text-light);
+  }
+
+  /* ─── FONDO ─── */
+  .bg-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(180, 60, 90, 0.45) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(212, 169, 106, 0.3) 0%, transparent 55%),
+      radial-gradient(ellipse at 60% 80%, rgba(140, 40, 70, 0.5) 0%, transparent 50%),
+      linear-gradient(160deg, #2d0d1a 0%, #1a060e 40%, #0d0508 100%);
+  }
+
+  .bg-photo {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background-image: url('IMG_2708.jpg'); /* 👈 Cambia esto por tu foto */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.28;
+    mix-blend-mode: luminosity;
+    filter: saturate(0.6) contrast(1.1);
+  }
+
+  .bg-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 4, 9, 0.55) 0%,
+      rgba(30, 8, 18, 0.35) 30%,
+      rgba(30, 8, 18, 0.35) 70%,
+      rgba(10, 3, 7, 0.8) 100%
+    );
+  }
+
+  /* Partículas / corazones flotantes */
+  .particles { position: fixed; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+
+  .heart-particle {
+    position: absolute;
+    font-size: 14px;
+    animation: floatUp linear infinite;
+    opacity: 0;
+    filter: blur(0.5px);
+  }
+
+  @keyframes floatUp {
+    0%   { transform: translateY(110vh) rotate(0deg) scale(0.6); opacity: 0; }
+    10%  { opacity: 0.7; }
+    85%  { opacity: 0.4; }
+    100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
+  }
+
+  /* ─── LAYOUT ─── */
+  .page {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    text-align: center;
+    margin-bottom: 50px;
+    animation: fadeDown 1.2s ease both;
+  }
+
+  .header .subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    color: var(--gold);
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    opacity: 0.9;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 8vw, 5rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fde8e8 0%, #f4c2b2 40%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    filter: drop-shadow(0 2px 20px rgba(200, 100, 120, 0.5));
+  }
+
+  .header .date-since {
+    margin-top: 14px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--text-muted);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  .header .heart-divider {
+    margin: 18px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--rose-deep);
+  }
+  .header .heart-divider::before,
+  .header .heart-divider::after {
+    content: '';
+    height: 1px;
+    width: 80px;
+    background: linear-gradient(to right, transparent, var(--rose-deep));
+  }
+  .header .heart-divider::after {
+    background: linear-gradient(to left, transparent, var(--rose-deep));
+  }
+
+  /* ─── GLASS CARD ─── */
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow:
+      0 8px 40px rgba(0,0,0,0.4),
+      inset 0 1px 0 rgba(255,255,255,0.15),
+      0 0 80px rgba(180, 60, 90, 0.08);
+  }
+
+  /* ─── CONTADOR PRINCIPAL ─── */
+  .main-counter {
+    padding: 40px 30px;
+    text-align: center;
+    margin-bottom: 28px;
+    animation: fadeUp 1.2s 0.3s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .main-counter::before {
+    content: '♡';
+    position: absolute;
+    font-size: 200px;
+    color: rgba(200, 80, 100, 0.04);
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  .main-counter .label {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: var(--rose);
+    margin-bottom: 28px;
+    display: block;
+  }
+
+  .time-grid {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 70px;
+  }
+
+  .time-unit .num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1;
+    background: linear-gradient(160deg, #fff 30%, var(--rose) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 15px rgba(220, 130, 150, 0.5));
+    transition: transform 0.15s ease;
+  }
+
+  .time-unit .num.tick {
+    transform: scale(1.08);
+  }
+
+  .time-unit .lbl {
+    font-size: 0.62rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+  }
+
+  .time-separator {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--rose-deep);
+    align-self: flex-start;
+    padding-top: 8px;
+    opacity: 0.6;
+    animation: pulseSep 1s ease-in-out infinite;
+  }
+
+  @keyframes pulseSep {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.2; }
+  }
+
+  /* ─── ANIVERSARIO ─── */
+  .anniversary-card {
+    padding: 30px;
+    margin-bottom: 28px;
+    animation: fadeUp 1.2s 0.5s ease both;
+    text-align: center;
+  }
+
+  .anniversary-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .anniversary-card .next-date {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  .anni-grid {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .anni-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 200, 180, 0.07);
+    border: 1px solid rgba(255, 200, 180, 0.15);
+    border-radius: 14px;
+    padding: 16px 20px;
+    min-width: 85px;
+  }
+
+  .anni-unit .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    filter: drop-shadow(0 0 10px rgba(212, 169, 106, 0.5));
+  }
+
+  .anni-unit .lbl {
+    font-size: 0.6rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ─── STATS CURIOSAS ─── */
+  .stats-title {
+    text-align: center;
+    margin-bottom: 20px;
+    animation: fadeUp 1.2s 0.7s ease both;
+  }
+
+  .stats-title h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--rose);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+    animation: fadeUp 1.2s 0.8s ease both;
+  }
+
+  .stat-card {
+    padding: 22px 18px;
+    text-align: center;
+    border-radius: 18px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 16px 50px rgba(180, 60, 90, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+
+  .stat-card .icon {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    display: block;
+    filter: drop-shadow(0 2px 8px rgba(200,100,120,0.4));
+  }
+
+  .stat-card .value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: white;
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+    filter: drop-shadow(0 0 10px rgba(255,200,200,0.3));
+  }
+
+  .stat-card .desc {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ─── HITOS ─── */
+  .milestones-section {
+    margin-bottom: 28px;
+    animation: fadeUp 1.2s 1s ease both;
+  }
+
+  .milestones-section h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--rose);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .milestone-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+  }
+
+  .milestone {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: rgba(255, 200, 200, 0.05);
+    border: 1px solid rgba(255, 200, 200, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .milestone.achieved {
+    background: rgba(212, 169, 106, 0.1);
+    border-color: rgba(212, 169, 106, 0.3);
+  }
+
+  .milestone.achieved:hover {
+    background: rgba(212, 169, 106, 0.15);
+    transform: translateX(4px);
+  }
+
+  .milestone .m-icon {
+    font-size: 1.5rem;
+    width: 36px;
+    text-align: center;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 6px rgba(200,150,50,0.4));
+  }
+
+  .milestone .m-info { flex: 1; }
+
+  .milestone .m-name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--text-light);
+    display: block;
+  }
+
+  .milestone .m-date {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .milestone .m-status {
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .milestone.achieved .m-status { color: var(--gold); }
+  .milestone:not(.achieved) .m-status { color: var(--rose); opacity: 0.6; }
+
+  /* ─── FRASE ROMÁNTICA ─── */
+  .quote-card {
+    padding: 36px 30px;
+    text-align: center;
+    margin-bottom: 28px;
+    animation: fadeUp 1.2s 1.1s ease both;
+    position: relative;
+  }
+
+  .quote-card::before {
+    content: '"';
+    position: absolute;
+    top: 10px;
+    left: 24px;
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    color: var(--rose-deep);
+    opacity: 0.3;
+    line-height: 1;
+    font-style: italic;
+  }
+
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto 16px;
+    position: relative;
+    z-index: 1;
+    transition: opacity 0.5s ease;
+  }
+
+  .quote-author {
+    font-family: 'Dancing Script', cursive;
+    color: var(--gold);
+    font-size: 1.1rem;
+    transition: opacity 0.5s ease;
+  }
+
+  .quote-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .quote-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rose-deep);
+    opacity: 0.3;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .quote-dot.active {
+    opacity: 1;
+    background: var(--rose);
+    transform: scale(1.3);
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    animation: fadeUp 1.2s 1.2s ease both;
+  }
+
+  .footer p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    color: var(--rose);
+    animation: heartbeat 2s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.07); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.05); }
+    56% { transform: scale(1); }
+  }
+
+  /* ─── ANIMACIONES ─── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 500px) {
+    .time-unit { min-width: 56px; }
+    .time-separator { font-size: 1.8rem; padding-top: 12px; }
+    .anni-grid { gap: 10px; }
+    .anni-unit { min-width: 70px; padding: 12px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="bg-photo"></div>
+<div class="bg-overlay"></div>
+<div class="particles" id="particles"></div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <span class="subtitle">desde siempre hasta siempre</span>
+    <h1>Tú & Yo</h1>
+    <div class="heart-divider">♡</div>
+    <p class="date-since">Juntos desde el 28 · IX · 2024</p>
+  </header>
+
+  <!-- CONTADOR PRINCIPAL -->
+  <div class="glass main-counter">
+    <span class="label">llevamos juntos...</span>
+    <div class="time-grid">
+      <div class="time-unit">
+        <span class="num" id="years">0</span>
+        <span class="lbl">años</span>
+      </div>
+      <span class="time-separator">·</span>
+      <div class="time-unit">
+        <span class="num" id="months">0</span>
+        <span class="lbl">meses</span>
+      </div>
+      <span class="time-separator">·</span>
+      <div class="time-unit">
+        <span class="num" id="days">0</span>
+        <span class="lbl">días</span>
+      </div>
+      <span class="time-separator">·</span>
+      <div class="time-unit">
+        <span class="num" id="hours">0</span>
+        <span class="lbl">horas</span>
+      </div>
+      <span class="time-separator">·</span>
+      <div class="time-unit">
+        <span class="num" id="minutes">0</span>
+        <span class="lbl">minutos</span>
+      </div>
+      <span class="time-separator">·</span>
+      <div class="time-unit">
+        <span class="num" id="seconds">0</span>
+        <span class="lbl">segundos</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANIVERSARIO -->
+  <div class="glass anniversary-card">
+    <h2>✦ Próximo Aniversario ✦</h2>
+    <p class="next-date">28 de septiembre de 2026</p>
+    <div class="anni-grid">
+      <div class="anni-unit">
+        <span class="num" id="a-days">0</span>
+        <span class="lbl">días</span>
+      </div>
+      <div class="anni-unit">
+        <span class="num" id="a-hours">0</span>
+        <span class="lbl">horas</span>
+      </div>
+      <div class="anni-unit">
+        <span class="num" id="a-minutes">0</span>
+        <span class="lbl">minutos</span>
+      </div>
+      <div class="anni-unit">
+        <span class="num" id="a-seconds">0</span>
+        <span class="lbl">segundos</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS CURIOSAS -->
+  <div class="stats-title">
+    <h2>Nuestros números 💫</h2>
+  </div>
+  <div class="stats-grid">
+    <div class="glass stat-card">
+      <span class="icon">☀️</span>
+      <span class="value" id="stat-sunsets">0</span>
+      <span class="desc">amaneceres juntos</span>
+    </div>
+    <div class="glass stat-card">
+      <span class="icon">💓</span>
+      <span class="value" id="stat-heartbeats">0</span>
+      <span class="desc">latidos de amor</span>
+    </div>
+    <div class="glass stat-card">
+      <span class="icon">🌙</span>
+      <span class="value" id="stat-nights">0</span>
+      <span class="desc">noches contigo</span>
+    </div>
+    <div class="glass stat-card">
+      <span class="icon">☕</span>
+      <span class="value" id="stat-coffees">0</span>
+      <span class="desc">cafés (aprox.)</span>
+    </div>
+    <div class="glass stat-card">
+      <span class="icon">🗓️</span>
+      <span class="value" id="stat-weeks">0</span>
+      <span class="desc">semanas</span>
+    </div>
+    <div class="glass stat-card">
+      <span class="icon">⌚</span>
+      <span class="value" id="stat-total-hours">0</span>
+      <span class="desc">horas totales</span>
+    </div>
+  </div>
+
+  <!-- HITOS -->
+  <div class="milestones-section">
+    <h2>Nuestros hitos 🏆</h2>
+    <div class="glass milestone-list" id="milestones"></div>
+  </div>
+
+  <!-- FRASE ROMÁNTICA -->
+  <div class="glass quote-card">
+    <p class="quote-text" id="quote-text"></p>
+    <span class="quote-author" id="quote-author"></span>
+    <div class="quote-dots" id="quote-dots"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Te quiero ayer, hoy y siempre 🤍</p>
+  </footer>
+
+</div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────
+const START = new Date('2024-09-28T00:00:00');
+
+// ── FRASES ROMÁNTICAS ───────────────────────────────
+const quotes = [
+  { text: "No hay palabras suficientes para describir todo lo que siento cuando estás a mi lado.", author: "— Para ti, siempre" },
+  { text: "El amor no se mide en el tiempo que llevas con alguien, sino en los momentos que te hacen querer quedarte.", author: "— Anónimo" },
+  { text: "Contigo aprendí que existen lugares que no conocía, y que a tu lado el mundo entero es chiquitito.", author: "— Armando Manzanero" },
+  { text: "Eres la persona que mi corazón estaba esperando sin que yo lo supiera.", author: "— Para ti" },
+  { text: "En un mundo donde puedes ser cualquier cosa, gracias por elegir ser mío.", author: "— Siempre tuyo" },
+  { text: "Cada día contigo es mi día favorito.", author: "— Winnie the Pooh" },
+];
+
+// ── HITOS ───────────────────────────────────────────
+const milestones = [
+  { name: "Primera semana juntos", date: new Date('2024-10-05'), icon: '🌸' },
+  { name: "Primer mes de amor", date: new Date('2024-10-28'), icon: '🥂' },
+  { name: "100 días de felicidad", date: new Date('2025-01-06'), icon: '💯' },
+  { name: "Seis meses juntos", date: new Date('2025-03-28'), icon: '🌹' },
+  { name: "Un año de nosotros", date: new Date('2025-09-28'), icon: '🎂' },
+  { name: "500 días de amor", date: new Date('2026-02-10'), icon: '⭐' },
+  { name: "Segundo aniversario", date: new Date('2026-09-28'), icon: '💍' },
+];
+
+// ── PARTÍCULAS ──────────────────────────────────────
+function createParticles() {
+  const container = document.getElementById('particles');
+  const emojis = ['♡', '✦', '·', '✿', '❀'];
+  for (let i = 0; i < 28; i++) {
+    const el = document.createElement('span');
+    el.className = 'heart-particle';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.animationDuration = (14 + Math.random() * 20) + 's';
+    el.style.animationDelay = (Math.random() * 20) + 's';
+    el.style.fontSize = (10 + Math.random() * 14) + 'px';
+    el.style.color = `hsl(${330 + Math.random()*40}, 70%, ${70 + Math.random()*20}%)`;
+    el.style.opacity = '0';
+    container.appendChild(el);
+  }
+}
+
+// ── UTILIDADES ──────────────────────────────────────
+function pad(n) { return String(Math.floor(n)).padStart(2, '0'); }
+
+function formatBig(n) {
+  if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+  if (n >= 1000) return (n / 1000).toFixed(0) + 'K';
+  return Math.floor(n).toString();
+}
+
+function tick(el, newVal) {
+  if (el.textContent !== newVal) {
+    el.textContent = newVal;
+    el.classList.add('tick');
+    setTimeout(() => el.classList.remove('tick'), 160);
+  }
+}
+
+// ── CONTADOR PRINCIPAL ──────────────────────────────
+function updateCounter() {
+  const now = new Date();
+  const diff = now - START;
+
+  const totalSeconds = Math.floor(diff / 1000);
+  const totalMinutes = Math.floor(diff / 60000);
+  const totalHours   = Math.floor(diff / 3600000);
+  const totalDays    = Math.floor(diff / 86400000);
+  const totalWeeks   = Math.floor(totalDays / 7);
+
+  // Desglose años / meses / días restantes
+  let y = now.getFullYear() - START.getFullYear();
+  let m = now.getMonth() - START.getMonth();
+  let d = now.getDate() - START.getDate();
+  let h = now.getHours() - START.getHours();
+  let min = now.getMinutes() - START.getMinutes();
+  let s = now.getSeconds() - START.getSeconds();
+
+  if (s < 0) { s += 60; min--; }
+  if (min < 0) { min += 60; h--; }
+  if (h < 0) { h += 24; d--; }
+  if (d < 0) {
+    const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    d += prevMonth.getDate(); m--;
+  }
+  if (m < 0) { m += 12; y--; }
+
+  tick(document.getElementById('years'),   pad(y));
+  tick(document.getElementById('months'),  pad(m));
+  tick(document.getElementById('days'),    pad(d));
+  tick(document.getElementById('hours'),   pad(h));
+  tick(document.getElementById('minutes'), pad(min));
+  tick(document.getElementById('seconds'), pad(s));
+
+  // Stats
+  document.getElementById('stat-sunsets').textContent    = totalDays;
+  document.getElementById('stat-heartbeats').textContent = formatBig(totalSeconds * 1.2);
+  document.getElementById('stat-nights').textContent     = totalDays;
+  document.getElementById('stat-coffees').textContent    = Math.floor(totalDays * 1.5);
+  document.getElementById('stat-weeks').textContent      = totalWeeks;
+  document.getElementById('stat-total-hours').textContent= formatBig(totalHours);
+
+  // Cuenta atrás al aniversario
+  const nextAnni = new Date('2026-09-28T00:00:00');
+  const anniDiff = nextAnni - now;
+  if (anniDiff > 0) {
+    const ad = Math.floor(anniDiff / 86400000);
+    const ah = Math.floor((anniDiff % 86400000) / 3600000);
+    const am = Math.floor((anniDiff % 3600000) / 60000);
+    const as = Math.floor((anniDiff % 60000) / 1000);
+    document.getElementById('a-days').textContent    = ad;
+    document.getElementById('a-hours').textContent   = pad(ah);
+    document.getElementById('a-minutes').textContent = pad(am);
+    document.getElementById('a-seconds').textContent = pad(as);
+  } else {
+    document.getElementById('a-days').textContent    = '¡¡¡';
+    document.getElementById('a-hours').textContent   = '🎉';
+    document.getElementById('a-minutes').textContent = '🎊';
+    document.getElementById('a-seconds').textContent = '!!!';
+  }
+}
+
+// ── HITOS ───────────────────────────────────────────
+function renderMilestones() {
+  const container = document.getElementById('milestones');
+  const now = new Date();
+  milestones.forEach(m => {
+    const achieved = now >= m.date;
+    const d = m.date;
+    const dateStr = d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+    const div = document.createElement('div');
+    div.className = 'milestone' + (achieved ? ' achieved' : '');
+    div.innerHTML = `
+      <span class="m-icon">${m.icon}</span>
+      <div class="m-info">
+        <span class="m-name">${m.name}</span>
+        <span class="m-date">${dateStr}</span>
+      </div>
+      <span class="m-status">${achieved ? '✓ Conseguido' : 'Pronto...'}</span>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// ── FRASES ──────────────────────────────────────────
+let quoteIndex = 0;
+let quoteTimer;
+
+function renderQuoteDots() {
+  const dots = document.getElementById('quote-dots');
+  dots.innerHTML = '';
+  quotes.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'quote-dot' + (i === quoteIndex ? ' active' : '');
+    dot.onclick = () => showQuote(i);
+    dots.appendChild(dot);
+  });
+}
+
+function showQuote(i) {
+  quoteIndex = i;
+  const qt = document.getElementById('quote-text');
+  const qa = document.getElementById('quote-author');
+  qt.style.opacity = '0';
+  qa.style.opacity = '0';
+  setTimeout(() => {
+    qt.textContent = quotes[i].text;
+    qa.textContent = quotes[i].author;
+    qt.style.opacity = '1';
+    qa.style.opacity = '1';
+  }, 400);
+  renderQuoteDots();
+  clearInterval(quoteTimer);
+  quoteTimer = setInterval(() => showQuote((quoteIndex + 1) % quotes.length), 6000);
+}
+
+// ── INIT ────────────────────────────────────────────
+createParticles();
+renderMilestones();
+showQuote(0);
+updateCounter();
+setInterval(updateCounter, 1000);
+</script>
+</body>
+</html>
