@@ -545,7 +545,231 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
+  /* ─── LÍNEA DEL TIEMPO ─── */
+  .timeline-section {
+    margin-bottom: 28px;
+    animation: fadeUp 1.2s 0.95s ease both;
+  }
+
+  .timeline-section h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--rose);
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .timeline {
+    position: relative;
+    padding: 10px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--rose-deep) 10%, var(--rose-deep) 90%, transparent);
+    transform: translateX(-50%);
+    opacity: 0.4;
+  }
+
+  .tl-item {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: calc(50% + 36px);
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .tl-item:nth-child(even) {
+    justify-content: flex-start;
+    padding-right: 0;
+    padding-left: calc(50% + 36px);
+  }
+
+  .tl-dot {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--rose-deep);
+    border: 2px solid var(--rose);
+    box-shadow: 0 0 14px rgba(196, 104, 122, 0.7);
+    z-index: 2;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .tl-card {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 340px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.35);
+  }
+
+  .tl-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 16px 50px rgba(180, 60, 90, 0.35);
+    border-color: rgba(220, 140, 160, 0.55);
+  }
+
+  .tl-card:hover ~ .tl-dot,
+  .tl-item:hover .tl-dot {
+    transform: translateX(-50%) scale(1.4);
+    box-shadow: 0 0 22px rgba(196, 104, 122, 1);
+  }
+
+  .tl-thumb {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.85) brightness(0.9);
+    transition: filter 0.3s ease;
+  }
+
+  .tl-card:hover .tl-thumb {
+    filter: saturate(1.05) brightness(1);
+  }
+
+  .tl-info {
+    padding: 14px 16px 16px;
+  }
+
+  .tl-date {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  .tl-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-light);
+    line-height: 1.45;
+  }
+
+  .tl-hint {
+    margin-top: 8px;
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--rose);
+    opacity: 0.7;
+  }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(5, 2, 4, 0.88);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal-box {
+    background: rgba(35, 10, 18, 0.95);
+    border: 1px solid rgba(220, 140, 160, 0.4);
+    border-radius: 24px;
+    overflow: hidden;
+    max-width: 560px;
+    width: 100%;
+    box-shadow: 0 30px 100px rgba(0,0,0,0.7), 0 0 60px rgba(180,60,90,0.2);
+    transform: scale(0.88) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+  }
+
+  .modal-overlay.open .modal-box {
+    transform: scale(1) translateY(0);
+  }
+
+  .modal-img {
+    width: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .modal-body {
+    padding: 26px 28px 30px;
+  }
+
+  .modal-date {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--text-light);
+    line-height: 1.55;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 14px; right: 16px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    z-index: 10;
+  }
+
+  .modal-close:hover {
+    background: rgba(196,104,122,0.6);
+    transform: scale(1.1);
+  }
+
   /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .timeline::before { left: 20px; }
+    .tl-item, .tl-item:nth-child(even) {
+      justify-content: flex-start;
+      padding-left: 50px;
+      padding-right: 0;
+    }
+    .tl-dot { left: 20px; }
+    .tl-card { max-width: 100%; }
+  }
+
   @media (max-width: 500px) {
     .time-unit { min-width: 56px; }
     .time-separator { font-size: 1.8rem; padding-top: 12px; }
@@ -672,6 +896,24 @@
   <div class="milestones-section">
     <h2>Nuestros hitos 🏆</h2>
     <div class="glass milestone-list" id="milestones"></div>
+  </div>
+
+  <!-- LÍNEA DEL TIEMPO -->
+  <div class="timeline-section">
+    <h2>Nuestros momentos 📸</h2>
+    <div class="timeline" id="timeline"></div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+      <img class="modal-img" id="modal-img" src="" alt="">
+      <div class="modal-body">
+        <span class="modal-date" id="modal-date"></span>
+        <p class="modal-title" id="modal-text"></p>
+      </div>
+    </div>
   </div>
 
   <!-- FRASE ROMÁNTICA -->
@@ -863,8 +1105,76 @@ function showQuote(i) {
   quoteTimer = setInterval(() => showQuote((quoteIndex + 1) % quotes.length), 6000);
 }
 
+// ── MOMENTOS (línea del tiempo) ─────────────────────
+const moments = [
+  {
+    date: '28 · IX · 2024',
+    img: 'foto1.png',
+    text: 'Nuestro primer día juntos, mi amor. El día más importante de mi vida.'
+  },
+  {
+    date: '19 · X · 2024',
+    img: 'foto2.jpg',
+    text: 'La vez que fuimos a ver a tu animal espiritual. Pinguinitosss 🐧'
+  },
+  {
+    date: '6 · XII · 2024',
+    img: 'foto3.png',
+    text: 'Qué bonitas son las luces a tu lado. ✨'
+  },
+  {
+    date: '28 · II · 2025',
+    img: 'foto4.png',
+    text: 'Lanzaderaaaaa, te amo. 🎢'
+  },
+  {
+    date: '1 · III · 2025',
+    img: 'foto5.png',
+    text: 'Qué bien nos la pasamos aunque estuvieras malita, mi amor. 🎶'
+  },
+];
+
+function renderTimeline() {
+  const container = document.getElementById('timeline');
+  moments.forEach((m, i) => {
+    const item = document.createElement('div');
+    item.className = 'tl-item';
+    item.innerHTML = `
+      <div class="tl-dot"></div>
+      <div class="tl-card" onclick="openModal(${i})">
+        <img class="tl-thumb" src="${m.img}" alt="${m.date}" onerror="this.style.display='none'">
+        <div class="tl-info">
+          <span class="tl-date">${m.date}</span>
+          <p class="tl-title">${m.text}</p>
+          <p class="tl-hint">Toca para ver la foto ♡</p>
+        </div>
+      </div>
+    `;
+    container.appendChild(item);
+  });
+}
+
+function openModal(i) {
+  const m = moments[i];
+  document.getElementById('modal-img').src = m.img;
+  document.getElementById('modal-date').textContent = m.date;
+  document.getElementById('modal-text').textContent = m.text;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModalBtn() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal')) closeModalBtn();
+}
+
 // ── INIT ────────────────────────────────────────────
 createParticles();
+renderTimeline();
 renderMilestones();
 showQuote(0);
 updateCounter();
